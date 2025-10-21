@@ -1,93 +1,220 @@
-<script>
-    const questions = [{
-            question: "Quem pintou a 'Mona Lisa'?",
-            options: ["Vincent van Gogh", "Leonardo da Vinci", "Pablo Picasso", "Claude Monet"],
-            answer: 1 // Leonardo da Vinci
-        },
-        {
-            question: "Qual país tem a maior população do mundo?",
-            options: ["Índia", "Estados Unidos", "China", "Indonésia"],
-            answer: 0 // Índia (Em 2024, a Índia superou a China)
-        },
-        {
-            question: "Em que ano o homem pisou na Lua pela primeira vez?",
-            options: ["1959", "1969", "1975", "1981"],
-            answer: 1 // 1969
-        },
-        {
-            question: "O que significa 'WWW' no endereço de um site?",
-            options: ["World Wide Web", "Web World War", "Windows Web World", "Wireless Web Works"],
-            answer: 0 // World Wide Web
-        },
-        {
-            question: "Qual é o nome do criador da Microsoft?",
-            options: ["Steve Jobs", "Mark Zuckerberg", "Bill Gates", "Jeff Bezos"],
-            answer: 2 // Bill Gates
-        },
-        {
-            question: "Qual oceano banha o Brasil?",
-            options: ["Pacífico", "Índico", "Atlântico", "Antártico"],
-            answer: 2 // Atlântico
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Jogo de Perguntas e Respostas</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #222831;
+            color: #eeeeee;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            padding: 10px;
         }
-    ];
 
-    let currentQuestionIndex = 0;
-    let score = 0;
+        #game {
+            background: #463944;
+            padding: 20px 30px;
+            border-radius: 8px;
+            width: 400px;
+            max-width: 90%;
+            text-align: center;
+            box-sizing: border-box;
+        }
 
-    const questionEl = document.getElementById("question");
-    const optionsEl = document.getElementById("options");
-    const nextBtn = document.getElementById("next-btn");
-    const scoreEl = document.getElementById("score");
+        h1 {
+            margin-bottom: 10px;
+            font-size: 1.8em;
+        }
 
-    function showQuestion() {
-        const currentQuestion = questions[currentQuestionIndex];
-        questionEl.textContent = currentQuestion.question;
+        #question {
+            font-size: 1.2em;
+            margin-bottom: 15px;
+        }
 
-        optionsEl.innerHTML = "";
-        currentQuestion.options.forEach((option, index) => {
-            const button = document.createElement("button");
-            button.classList.add("option");
-            button.textContent = option;
-            button.onclick = () => selectOption(index);
-            optionsEl.appendChild(button);
-        });
-        nextBtn.style.display = "none";
-        scoreEl.textContent = `Pontuação: ${score}`;
-    }
+        .option {
+            background: #00adb5;
+            border: none;
+            border-radius: 5px;
+            color: #222831;
+            font-size: 1em;
+            padding: 10px;
+            margin: 6px 0;
+            width: 100%;
+            cursor: pointer;
+            transition: background 0.3s;
+            box-sizing: border-box;
+        }
 
-    function selectOption(selectedIndex) {
-        const currentQuestion = questions[currentQuestionIndex];
-        const optionButtons = document.querySelectorAll(".option");
+        .option:hover {
+            background: #007c83;
+        }
 
-        optionButtons.forEach((btn, index) => {
-            btn.disabled = true;
-            if (index === currentQuestion.answer) {
-                btn.classList.add("correct");
+        .option.correct {
+            background: #4caf50;
+            color: white;
+            cursor: default;
+        }
+
+        .option.wrong {
+            background: #f44336;
+            color: white;
+            cursor: default;
+        }
+
+        #next-btn {
+            margin-top: 20px;
+            padding: 8px 18px;
+            font-size: 1em;
+            background: #00adb5;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            color: #222831;
+            display: none;
+            box-sizing: border-box;
+        }
+
+        #score {
+            margin-top: 15px;
+            font-size: 1.1em;
+        }
+
+        @media (max-width: 480px) {
+            #game {
+                padding: 15px 20px;
+                width: 100%;
             }
-        });
 
-        if (selectedIndex === currentQuestion.answer) {
-            score++;
-            optionButtons[selectedIndex].classList.add("correct");
-        } else {
-            optionButtons[selectedIndex].classList.add("wrong");
+            h1 {
+                font-size: 1.5em;
+            }
+
+            #question {
+                font-size: 1em;
+            }
+
+            .option {
+                font-size: 0.9em;
+                padding: 8px;
+            }
+
+            #next-btn {
+                font-size: 0.9em;
+                padding: 7px 14px;
+            }
+
+            #score {
+                font-size: 1em;
+            }
         }
+    </style>
+</head>
 
-        scoreEl.textContent = `Pontuação: ${score}`;
-        nextBtn.style.display = "block";
-    }
+<body>
+    <div id="game">
+        <h1>Jogo de Perguntas</h1>
+        <div id="question">Pergunta aparecerá aqui</div>
+        <div id="options"></div>
+        <button id="next-btn">Próxima</button>
+        <div id="score"></div>
+    </div>
 
-    nextBtn.onclick = () => {
-        currentQuestionIndex++;
-        if (currentQuestionIndex < questions.length) {
-            showQuestion();
-        } else {
-            questionEl.textContent = "Fim do jogo!";
+    <script>
+        const questions = [
+        {
+            question: "Qual animal consegue dormir em pé?",
+            options: ["Cavalo", "Gato", "Elefante", "Cachorro"],
+            answer: 0
+        },
+            {
+                question: "Qual animal terrestre é o mais rápido do mundo?",
+                options: ["Leão", "Tigre", "Guepardo", "Cavalo"],
+                answer: 2
+            },
+            {
+                question: "Quem pintou a famosa obra 'Mona Lisa'?",
+                options: ["Michelangelo", "Leonardo da Vinci", "Van Gogh", "Picasso"],
+                answer: 1
+            },
+            {
+                question: "Qual país é conhecido como a 'Terra do Sol Nascente'?",
+                options: ["China", "Japão", "Coreia do Sul", "Tailândia"],
+                answer: 1
+            },
+            {
+                question: "Quantos ossos possui o corpo humano adulto (aproximadamente)?",
+                options: ["106", "206", "306", "406"],
+                answer: 1
+            }
+        ];
+
+        let currentQuestionIndex = 0;
+        let score = 0;
+
+        const questionEl = document.getElementById("question");
+        const optionsEl = document.getElementById("options");
+        const nextBtn = document.getElementById("next-btn");
+        const scoreEl = document.getElementById("score");
+
+        function showQuestion() {
+            const currentQuestion = questions[currentQuestionIndex];
+            questionEl.textContent = currentQuestion.question;
+
             optionsEl.innerHTML = "";
+            currentQuestion.options.forEach((option, index) => {
+                const button = document.createElement("button");
+                button.classList.add("option");
+                button.textContent = option;
+                button.onclick = () => selectOption(index);
+                optionsEl.appendChild(button);
+            });
             nextBtn.style.display = "none";
-            scoreEl.textContent = `Pontuação final: ${score} de ${questions.length}`;
+            scoreEl.textContent = `Pontuação: ${score}`;
         }
-    };
 
-    showQuestion();
-</script>
+        function selectOption(selectedIndex) {
+            const currentQuestion = questions[currentQuestionIndex];
+            const optionButtons = document.querySelectorAll(".option");
+
+            optionButtons.forEach((btn, index) => {
+                btn.disabled = true;
+                if (index === currentQuestion.answer) {
+                    btn.classList.add("correct");
+                }
+            });
+
+            if (selectedIndex === currentQuestion.answer) {
+                score++;
+                optionButtons[selectedIndex].classList.add("correct");
+            } else {
+                optionButtons[selectedIndex].classList.add("wrong");
+            }
+
+            scoreEl.textContent = `Pontuação: ${score}`;
+            nextBtn.style.display = "block";
+        }
+
+        nextBtn.onclick = () => {
+            currentQuestionIndex++;
+            if (currentQuestionIndex < questions.length) {
+                showQuestion();
+            } else {
+                questionEl.textContent = "Fim do jogo!";
+                optionsEl.innerHTML = "";
+                nextBtn.style.display = "none";
+                scoreEl.textContent = `Pontuação final: ${score} de ${questions.length}`;
+            }
+        };
+
+        showQuestion();
+    </script>
+</body>
+
+</html>
