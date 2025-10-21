@@ -1,0 +1,93 @@
+<script>
+    const questions = [{
+            question: "Quem pintou a 'Mona Lisa'?",
+            options: ["Vincent van Gogh", "Leonardo da Vinci", "Pablo Picasso", "Claude Monet"],
+            answer: 1 // Leonardo da Vinci
+        },
+        {
+            question: "Qual país tem a maior população do mundo?",
+            options: ["Índia", "Estados Unidos", "China", "Indonésia"],
+            answer: 0 // Índia (Em 2024, a Índia superou a China)
+        },
+        {
+            question: "Em que ano o homem pisou na Lua pela primeira vez?",
+            options: ["1959", "1969", "1975", "1981"],
+            answer: 1 // 1969
+        },
+        {
+            question: "O que significa 'WWW' no endereço de um site?",
+            options: ["World Wide Web", "Web World War", "Windows Web World", "Wireless Web Works"],
+            answer: 0 // World Wide Web
+        },
+        {
+            question: "Qual é o nome do criador da Microsoft?",
+            options: ["Steve Jobs", "Mark Zuckerberg", "Bill Gates", "Jeff Bezos"],
+            answer: 2 // Bill Gates
+        },
+        {
+            question: "Qual oceano banha o Brasil?",
+            options: ["Pacífico", "Índico", "Atlântico", "Antártico"],
+            answer: 2 // Atlântico
+        }
+    ];
+
+    let currentQuestionIndex = 0;
+    let score = 0;
+
+    const questionEl = document.getElementById("question");
+    const optionsEl = document.getElementById("options");
+    const nextBtn = document.getElementById("next-btn");
+    const scoreEl = document.getElementById("score");
+
+    function showQuestion() {
+        const currentQuestion = questions[currentQuestionIndex];
+        questionEl.textContent = currentQuestion.question;
+
+        optionsEl.innerHTML = "";
+        currentQuestion.options.forEach((option, index) => {
+            const button = document.createElement("button");
+            button.classList.add("option");
+            button.textContent = option;
+            button.onclick = () => selectOption(index);
+            optionsEl.appendChild(button);
+        });
+        nextBtn.style.display = "none";
+        scoreEl.textContent = `Pontuação: ${score}`;
+    }
+
+    function selectOption(selectedIndex) {
+        const currentQuestion = questions[currentQuestionIndex];
+        const optionButtons = document.querySelectorAll(".option");
+
+        optionButtons.forEach((btn, index) => {
+            btn.disabled = true;
+            if (index === currentQuestion.answer) {
+                btn.classList.add("correct");
+            }
+        });
+
+        if (selectedIndex === currentQuestion.answer) {
+            score++;
+            optionButtons[selectedIndex].classList.add("correct");
+        } else {
+            optionButtons[selectedIndex].classList.add("wrong");
+        }
+
+        scoreEl.textContent = `Pontuação: ${score}`;
+        nextBtn.style.display = "block";
+    }
+
+    nextBtn.onclick = () => {
+        currentQuestionIndex++;
+        if (currentQuestionIndex < questions.length) {
+            showQuestion();
+        } else {
+            questionEl.textContent = "Fim do jogo!";
+            optionsEl.innerHTML = "";
+            nextBtn.style.display = "none";
+            scoreEl.textContent = `Pontuação final: ${score} de ${questions.length}`;
+        }
+    };
+
+    showQuestion();
+</script>
