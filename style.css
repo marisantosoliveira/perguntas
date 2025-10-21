@@ -1,8 +1,7 @@
 body {
-  /* Fundo Escuro Principal (Preto Suave) */
   font-family: Arial, sans-serif;
-  background: #1e1e2d; /* Roxo escuro muito sutil */
-  color: #f0f0f0; /* Branco suave para o texto */
+  background: #222831;
+  color: #eeeeee;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -12,20 +11,16 @@ body {
 }
 
 #game {
-  /* Fundo do Jogo (Violeta/Cinza Escuro) */
-  background: #2d2d44; /* Um tom mais escuro de violeta/cinza */
+  background: #393e46;
   padding: 20px 30px;
   border-radius: 8px;
   width: 400px;
   max-width: 90%;
   text-align: center;
   box-sizing: border-box;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
 }
 
 h1 {
-  /* Títulos em Rosa para Destaque */
-  color: #ff69b4; /* Rosa Choque Vibrante */
   margin-bottom: 10px;
   font-size: 1.8em;
 }
@@ -36,11 +31,10 @@ h1 {
 }
 
 .option {
-  /* Botões de Opção (Cor Principal: Violeta) */
-  background: #8a2be2; /* Violeta Vibrante (Blue Violet) */
+  background: #00adb5;
   border: none;
   border-radius: 5px;
-  color: #f0f0f0; /* Texto claro nos botões */
+  color: #222831;
   font-size: 1em;
   padding: 10px;
   margin: 6px 0;
@@ -51,41 +45,32 @@ h1 {
 }
 
 .option:hover {
-  /* Hover dos Botões */
-  background: #6a0dad; /* Violeta mais escuro no hover */
+  background: #007c83;
 }
 
 .option.correct {
-  /* Resposta Correta */
-  background: #4caf50; /* Verde (manter o verde padrão para feedback positivo é bom) */
+  background: #4caf50;
   color: white;
   cursor: default;
 }
 
 .option.wrong {
-  /* Resposta Errada */
-  background: #f44336; /* Vermelho (manter o vermelho padrão para feedback negativo é bom) */
+  background: #f44336;
   color: white;
   cursor: default;
 }
 
 #next-btn {
-  /* Botão Próxima (Cor de Destaque: Rosa) */
   margin-top: 20px;
   padding: 8px 18px;
   font-size: 1em;
-  background: #ff69b4; /* Rosa Choque Vibrante */
+  background: #00adb5;
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  color: #1e1e2d; /* Texto escuro no botão */
+  color: #222831;
   display: none;
   box-sizing: border-box;
-  font-weight: bold;
-}
-
-#next-btn:hover {
-  background: #ff85c1;
 }
 
 #score {
