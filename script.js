@@ -1,34 +1,10 @@
 const questions = [
   {
-    question: "Qual empresa criou a linguagem de programação JavaScript?",
-    options: ["Google", "Microsoft", "Netscape", "Apple"],
-    answer: 2 // Netscape
+    question: "Qual a capital do Brasil?",
+    options: ["São Paulo", "Rio de Janeiro", "Brasília", "Salvador"],
+    answer: 2
   },
-  {
-    question: "O que significa a sigla 'URL'?",
-    options: ["User Resource Location", "Uniform Resource Locator", "Universal Remote Link", "Underground Router Line"],
-    answer: 1 // Uniform Resource Locator
-  },
-  {
-    question: "Qual destes é um banco de dados relacional popular?",
-    options: ["MongoDB", "Redis", "MySQL", "Node.js"],
-    answer: 2 // MySQL
-  },
-  {
-    question: "Em qual ano o primeiro iPhone foi lançado?",
-    options: ["2005", "2007", "2009", "2010"],
-    answer: 1 // 2007
-  },
-  {
-    question: "Qual cor representa o código hexadecimal '#FF0000'?",
-    options: ["Azul", "Verde", "Amarelo", "Vermelho"],
-    answer: 3 // Vermelho
-  },
-  {
-    question: "Qual termo é usado para descrever um erro em um programa de computador?",
-    options: ["Feature", "Patch", "Bug", "Syntax"],
-    answer: 2 // Bug
-  }
+  // demais perguntas...
 ];
 
 let currentQuestionIndex = 0;
